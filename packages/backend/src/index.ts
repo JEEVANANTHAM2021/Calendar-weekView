@@ -14,8 +14,12 @@ import { signAccessToken, type AuthRequest, authMiddleware} from './auth'
 
 
 
-
-config({ path: '../../.env' });
+   //for production
+const isProd = process.env.NODE_ENV === 'production';
+if (!isProd) {
+  // Local development only
+  config({ path: '../../.env' });
+}
 console.log('Loaded MONGO_URI:', process.env.MONGO_URI);
 
 
@@ -26,13 +30,23 @@ const PORT = process.env.PORT || 4000
 
 //middleware
 app.use(express.json());
+app.use(cookieParser());
+const allowedOrigins = [
+  //process.env.CLIENT_URL,          // e.g. https://your-frontend.vercel.app
+  process.env.CLIENT_URL_DEV || 'http://localhost:5173', // dev fallback
+].filter(Boolean);
 app.use(
   cors({
-    origin: process.env.CLIENT_URL, // frontend dev origin
-    credentials: true
+    origin: allowedOrigins,
+    credentials: true,
   })
 );
-app.use(cookieParser());
+
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
+  secure: isProd,
+};
 
 // AUTH ROUTES
 // Register
@@ -60,11 +74,7 @@ app.post('/api/auth/register', async (req, res) => {
 
     const token = signAccessToken(user);
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: false // true in production with HTTPS
-    });
+    res.cookie('token', token, cookieOptions);
 
     return res.status(201).json({ user: toUserDTO(user) });
   } catch (err) {
@@ -97,11 +107,7 @@ app.post('/api/auth/login', async (req, res) => {
 
     const token = signAccessToken(user);
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: false
-    });
+    res.cookie('token', token, cookieOptions);
 
     return res.json({ user: toUserDTO(user) });
   } catch (err) {
@@ -113,9 +119,9 @@ app.post('/api/auth/login', async (req, res) => {
 // Logout
 app.post('/api/auth/logout', (_req, res) => {
   res.clearCookie('token', {
-    sameSite: 'lax',
-    secure: false
-  });
+  sameSite: cookieOptions.sameSite,
+  secure: cookieOptions.secure,
+});
   return res.json({ success: true });
 });
 
