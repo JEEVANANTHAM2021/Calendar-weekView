@@ -12,7 +12,7 @@ async function handleJson<T>(res: Response): Promise<T> {
   return res.json() as Promise<T>;
 }
  
-const BASE_URL= import.meta.env.VITE_BASE_URL
+const BASE_URL= import.meta.env.VITE_BASE_URL ?? 'http://localhost:4000';
 export async function register(
   name: string,
   email: string,

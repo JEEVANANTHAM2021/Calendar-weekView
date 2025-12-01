@@ -24,7 +24,7 @@ export interface CreateEventInput {
   reminderMinutesBefore?: number;
 }
 
-const BASE_URL = import.meta.env.VITE_BASE_URL
+const BASE_URL = import.meta.env.VITE_BASE_URL ?? 'http://localhost:4000';
 
 // GET events for range
 export async function fetchEventsInRange(start: string, end: string): Promise<EventDTO[]> {
