@@ -2,7 +2,11 @@
   "name": "google-calendar",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",
