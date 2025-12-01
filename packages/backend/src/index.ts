@@ -209,10 +209,6 @@ app.post('/api/events', async (req, res) => {
 
 
 //Api listen
-app.get('/api/health', (req, res) =>
-    { res.json({ status:'ok'}) 
-});
-
 async function start() {
   try {
     const uri = process.env.MONGO_URI;
