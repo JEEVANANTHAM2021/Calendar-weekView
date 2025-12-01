@@ -4,8 +4,6 @@ export interface UserDTO {
   name: string;
 }
 
-const BASE_URL = 'http://localhost:4000';
-
 async function handleJson<T>(res: Response): Promise<T> {
   if (!res.ok) {
     const text = await res.text().catch(() => '');
@@ -13,7 +11,8 @@ async function handleJson<T>(res: Response): Promise<T> {
   }
   return res.json() as Promise<T>;
 }
-
+ 
+const BASE_URL= import.meta.env.VITE_BASE_URL
 export async function register(
   name: string,
   email: string,

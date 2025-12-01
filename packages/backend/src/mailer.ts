@@ -1,7 +1,11 @@
 import nodemailer from 'nodemailer';
 import { config } from 'dotenv';
 
-config({path:'../../.env'})
+const isProd = process.env.NODE_ENV === 'production';
+if (!isProd) {
+  // Local development only
+  config({ path: '../../.env' });
+}
 
 const host = process.env.SMTP_HOST;
 const port = Number(process.env.SMTP_PORT ?? 587);
