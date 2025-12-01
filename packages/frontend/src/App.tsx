@@ -369,7 +369,7 @@ return (
 
     {/* Week view container – scrollable on small screens */}
     {!loading && !error && (
-      <section className="mt-2 h-[70vh] min-h-[400px] overflow-auto rounded-lg border border-gray-200 bg-white">
+      <section className="mt-2 h-[80vh] min-h-[420px] overflow-y-auto rounded-lg border border-gray-200 bg-white">
         <WeekView
           events={events}
           weekStart={weekStart}
