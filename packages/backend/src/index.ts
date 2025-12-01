@@ -32,15 +32,17 @@ const PORT = process.env.PORT || 4000
 app.use(express.json());
 app.use(cookieParser());
 const allowedOrigins = [
-  //process.env.CLIENT_URL,          // e.g. https://your-frontend.vercel.app
-  process.env.CLIENT_URL_DEV || 'http://localhost:5173', // dev fallback
-].filter(Boolean);
+  process.env.CLIENT_URL,
+  process.env.CLIENT_URL_DEV || 'http://localhost:5173',
+].filter(Boolean) as string[];
+
 app.use(
   cors({
     origin: allowedOrigins,
     credentials: true,
   })
 );
+
 
 const cookieOptions = {
   httpOnly: true,
