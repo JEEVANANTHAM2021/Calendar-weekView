@@ -197,7 +197,7 @@ if (authLoading) {
 if (!user) {
   return (
     <main className="min-h-screen flex items-center justify-center bg-teal-500 font-sans px-4 py-8">
-      <div className="w-full max-w-sm sm:max-w-md rounded-lg bg-white/90 shadow-lg p-4 sm:p-6">
+      <div className="w-full max-w-sm sm:max-w-md rounded-3xl bg-white/0 shadow-lg p-4 sm:p-6">
         {/* Toggle: Login / Sign up */}
         <div className="mb-4 flex border-b border-gray-200">
           <button
