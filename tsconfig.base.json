@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["DOM", "ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "composite": false,
+    "baseUrl": ".",
+    "paths": {
+      "@calendar/shared": ["packages/shared/src"],
+      "@calendar/shared/*": ["packages/shared/src/*"]
+    }
+  }
+}
