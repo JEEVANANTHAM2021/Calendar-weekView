@@ -24,15 +24,15 @@ export interface CreateEventInput {
   reminderMinutesBefore?: number;
 }
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-if (!BASE_URL) {
+const API_URL = import.meta.env.VITE_API_URL;
+if (!API_URL) {
   throw new Error('VITE_API_URL is not set');
 }
 
 
 // GET events for range
 export async function fetchEventsInRange(start: string, end: string): Promise<EventDTO[]> {
-  const url = `${BASE_URL}/api/events?start=${encodeURIComponent(start)}&end=${encodeURIComponent(
+  const url = `${API_URL}/api/events?start=${encodeURIComponent(start)}&end=${encodeURIComponent(
     end
   )}`;
   const res = await fetch(url ,{
@@ -49,7 +49,7 @@ export async function fetchEventsInRange(start: string, end: string): Promise<Ev
 
 // POST create event
 export async function createEvent(input: CreateEventInput): Promise<EventDTO> {
-  const res = await fetch(`${BASE_URL}/api/events`, {
+  const res = await fetch(`${API_URL}/api/events`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(input),
@@ -69,7 +69,7 @@ export async function updateEvent(
   id: string,
   input: Partial<CreateEventInput>
 ): Promise<EventDTO> {
-  const res = await fetch(`${BASE_URL}/api/events/${id}`, {
+  const res = await fetch(`${API_URL}/api/events/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(input),
@@ -85,7 +85,7 @@ export async function updateEvent(
 
 // DELETE event
 export async function deleteEvent(id: string): Promise<void> {
-  const res = await fetch(`${BASE_URL}/api/events/${id}`, {
+  const res = await fetch(`${API_URL}/api/events/${id}`, {
     method: 'DELETE',
   });
 

@@ -12,8 +12,8 @@ async function handleJson<T>(res: Response): Promise<T> {
   return res.json() as Promise<T>;
 }
  
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-if (!BASE_URL) {
+const API_URL = import.meta.env.VITE_API_URL;
+if (!API_URL) {
   throw new Error('VITE_API_URL is not set');
 }
 
@@ -22,7 +22,7 @@ export async function register(
   email: string,
   password: string
 ): Promise<UserDTO> {
-  const res = await fetch(`${BASE_URL}/api/auth/register`, {
+  const res = await fetch(`${API_URL}/api/auth/register`, {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -37,7 +37,7 @@ export async function login(
   email: string,
   password: string
 ): Promise<UserDTO> {
-  const res = await fetch(`${BASE_URL}/api/auth/login`, {
+  const res = await fetch(`${API_URL}/api/auth/login`, {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -49,7 +49,7 @@ export async function login(
 }
 
 export async function logout(): Promise<void> {
-  const res = await fetch(`${BASE_URL}/api/auth/logout`, {
+  const res = await fetch(`${API_URL}/api/auth/logout`, {
     method: 'POST',
     credentials: 'include'
   });
@@ -57,7 +57,7 @@ export async function logout(): Promise<void> {
 }
 
 export async function getMe(): Promise<UserDTO | null> {
-  const res = await fetch(`${BASE_URL}/api/auth/me`, {
+  const res = await fetch(`${API_URL}/api/auth/me`, {
     method: 'GET',
     credentials: 'include',
   });
