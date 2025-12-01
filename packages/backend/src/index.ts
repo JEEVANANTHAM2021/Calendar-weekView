@@ -220,21 +220,21 @@ async function start() {
       throw new Error('MONGO_URI is not defined');
     }
 
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
     await mongoose.connect(uri);
     console.log('Connected to MongoDB');
 
     setInterval(checkAndSendReminders, 60_000);
-
-    app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
-    });
   } catch (err) {
     console.error('Failed to start server', err);
-    process.exit(1);
   }
 }
 
 start();
+
 
 // PUT /api/events/:id  -> update event
 app.put('/api/events/:id', async (req, res) => {
