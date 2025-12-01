@@ -2,13 +2,14 @@
   "name": "backend",
   "private": true,
   "version": "0.0.0",
-  "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js",
-    "lint": "eslint \"./src/**/*.{ts,js}\" --max-warnings=0",
-    "format": "prettier --write \"src/**/*.{ts,js,json,md}\""
-  },
+ "scripts": {
+  "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+  "build": "tsc -p tsconfig.json",
+  "prestart": "node -e \"console.log('CWD:', process.cwd()); const fs=require('fs'); if(fs.existsSync('./dist')) { console.log('dist exists, files:', fs.readdirSync('./dist')); } else { console.log('dist DOES NOT exist'); }\"",
+  "start": "node dist/index.js",
+  "lint": "eslint \"./src/**/*.{ts,js}\" --max-warnings=0",
+  "format": "prettier --write \"src/**/*.{ts,js,json,md}\""
+},
 
   "dependencies": {
     "@types/cookie-parser": "^1.4.10",
