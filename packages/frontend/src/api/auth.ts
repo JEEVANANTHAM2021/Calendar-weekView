@@ -12,7 +12,11 @@ async function handleJson<T>(res: Response): Promise<T> {
   return res.json() as Promise<T>;
 }
  
-const BASE_URL= import.meta.env.VITE_BASE_URL ?? 'http://localhost:4000';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+if (!BASE_URL) {
+  throw new Error('VITE_API_URL is not set');
+}
+
 export async function register(
   name: string,
   email: string,
