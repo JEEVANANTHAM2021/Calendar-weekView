@@ -32,11 +32,13 @@ function App() {
   const [authError, setAuthError] = useState<string | null>(null);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
   // register form state
   const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [registerName, setRegisterName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
 
 
  ///UseEffect for Auth ---->
@@ -245,20 +247,26 @@ if (!user) {
 
             <div>
               <label className="mb-1 block text-xs">Password</label>
+              <div className='relative'>
               <input
-                type="password"
+                type={showLoginPassword ? 'text' : 'password'}
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
                 className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                 required
               />
+              <button type="button"
+              onClick={() => setShowLoginPassword(prev => !prev)}
+              className="absolute inset-y-0 right-0 flex items-center px-2 text-xs text-gray-500 hover:text-gray-700"
+              >{showLoginPassword ? 'Hide' : 'Show'}
+              </button>
+              </div>
             </div>
 
             <button
               type="submit"
               className="w-full rounded bg-teal-500 py-2 text-sm text-white hover:bg-teal-600 transition-colors"
-            >
-              Sign in
+            >Sign in
             </button>
           </form>
         ) : (
@@ -288,20 +296,27 @@ if (!user) {
 
             <div>
               <label className="mb-1 block text-xs">Create Password</label>
+              <div className='relative'>
               <input
-                type="password"
+                type={showRegisterPassword ? 'text' : 'password'}
                 value={registerPassword}
                 onChange={(e) => setRegisterPassword(e.target.value)}
                 className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                 required
               />
+               <button
+                 type="button"
+                 onClick={() => setShowRegisterPassword(prev => !prev)}
+                 className="absolute inset-y-0 right-0 flex items-center px-2 text-xs text-gray-500 hover:text-gray-700"
+              >{showRegisterPassword ? 'Hide' : 'Show'}
+               </button>
+               </div>
             </div>
 
             <button
               type="submit"
               className="w-full rounded bg-teal-500 py-2 text-sm text-white hover:bg-teal-600 transition-colors"
-            >
-              Create account
+            >Create account
             </button>
           </form>
         )}
